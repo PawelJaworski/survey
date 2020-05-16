@@ -1,0 +1,25 @@
+package pl.javorex.survey.surveyspringapp.rest.response;
+
+import pl.javorex.survey.application.response.AnsweredQuestionDto;
+import pl.javorex.survey.application.response.QuestionDefinitionDto;
+
+import java.util.List;
+
+public class SurveyResponse {
+    private final List<QuestionDefinitionDto> questionDefinitions;
+    private final List<AnsweredQuestionDto> answeredQuestions;
+
+    public SurveyResponse(List<QuestionDefinitionDto> questionDefinitions,
+                          List<AnsweredQuestionDto> answeredQuestions) {
+        this.questionDefinitions = questionDefinitions;
+        this.answeredQuestions = answeredQuestions;
+    }
+
+    public List<QuestionDefinitionDto> getQuestionDefinitions() {
+        return questionDefinitions;
+    }
+
+    public List<AnsweredQuestionDto> getAnsweredQuestions() {
+        return answeredQuestions;
+    }
+}
