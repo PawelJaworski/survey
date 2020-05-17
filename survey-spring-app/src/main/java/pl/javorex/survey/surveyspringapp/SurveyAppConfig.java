@@ -2,6 +2,7 @@ package pl.javorex.survey.surveyspringapp;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.javorex.survey.application.SurveyCommandFacade;
 import pl.javorex.survey.application.SurveyQueryFacade;
 import pl.javorex.survey.application.SurveyServiceConfig;
 
@@ -12,5 +13,10 @@ public class SurveyAppConfig {
     @Bean
     SurveyQueryFacade surveyQueryFacade() {
         return config.surveyQueryFacade();
+    }
+
+    @Bean
+    SurveyCommandFacade surveyCommandFacade() {
+        return config.surveyCommandFacade();
     }
 }

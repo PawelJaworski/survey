@@ -29,7 +29,7 @@ public final class SurveyRepositoryInMemoryImpl implements SurveyRepository<Stri
     @Override
     public Optional<Survey> findByRespondentIDAndType(RespondentID<String> respondentID, String type) {
         return surveys.stream()
-                .filter(it -> it.complementedBy(respondentID))
+                .filter(it -> it.isAnsweredBy(respondentID))
                 .filter(it -> it.isTypeOf(type))
                 .findAny();
     }
