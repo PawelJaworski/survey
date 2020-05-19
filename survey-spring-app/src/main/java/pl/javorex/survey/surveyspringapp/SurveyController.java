@@ -15,6 +15,7 @@ import pl.javorex.survey.surveyspringapp.rest.response.SurveyResponse;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class SurveyController {
     private final SurveyQueryFacade surveyQueryFacade;
