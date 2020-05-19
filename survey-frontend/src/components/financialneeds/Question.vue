@@ -1,10 +1,19 @@
 <template>
-    <div v-if="survey" class="survey">
-        <div>{{questionCode}} - {{possibleAnswers}} - {{answerCode}}</div>
+    <div v-if="survey" class="question">
+        <div>{{questionCode}}</div>
         <div v-for="possibleAnswer in possibleAnswers"
              v-bind:key="possibleAnswer.answerCode">
-            {{possibleAnswer.answerCode}}
+            <label :for="questionCode + '__' + possibleAnswer">
+            {{possibleAnswer}}
+            </label>
+            <input type="radio"
+                   :id="questionCode + '__' + possibleAnswer"
+                   :name="questionCode"
+                   :value="possibleAnswer"
+                   :checked="possibleAnswer === answerCode"/>
+            <span v-if="possibleAnswer === answerCode && answerText">{{answerText}}</span>
         </div>
+
     </div>
 </template>
 
@@ -24,7 +33,8 @@
         data() {
             return {
                 possibleAnswers: [],
-                answerCode: undefined
+                answerCode: undefined,
+                answerText: undefined
             }
         },
         watch: {
@@ -37,9 +47,10 @@
                         .possibleAnswers;
                     this.possibleAnswers = possibleAnswers;
 
-                    const answerCode = newSurvey.answeredQuestions
+                    const answer = newSurvey.answeredQuestions
                         .filter(it => it.questionCode == this.$props.questionCode)[0]
-                    this.answerCode = answerCode ? answerCode.answerCode : undefined;
+                    this.answerCode = answer ? answer.answerCode : undefined;
+                    this.answerText = answer ? answer.answerText : undefined;
                 }
             }
         }
@@ -63,6 +74,5 @@
     }
 </script>
 
-<style scoped>
-
+<style src="@/assets/survey.css">
 </style>

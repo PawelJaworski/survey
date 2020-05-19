@@ -1,5 +1,5 @@
 <template>
-  <div v-if="survey" class="hello">
+  <div class="hello">
     <Question
             v-for="question in survey.questionDefinitions"
               v-bind:key="question.questionCode"
