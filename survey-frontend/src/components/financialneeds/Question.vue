@@ -3,9 +3,7 @@
         <div>{{questionCode}}</div>
         <div v-for="possibleAnswer in possibleAnswers"
              v-bind:key="possibleAnswer.answerCode">
-            <label :for="questionCode + '__' + possibleAnswer">
-            {{possibleAnswer}}
-            </label>
+            <label :for="questionCode + '__' + possibleAnswer">{{possibleAnswer}}</label>
             <input type="radio"
                    :id="questionCode + '__' + possibleAnswer"
                    :name="questionCode"
@@ -42,36 +40,25 @@
                 immediate: true,
                 deep: true,
                 handler(newSurvey) {
-                    const possibleAnswers = newSurvey.questionDefinitions
-                        .filter(it => it.questionCode == this.$props.questionCode)[0]
-                        .possibleAnswers;
-                    this.possibleAnswers = possibleAnswers;
-
-                    const answer = newSurvey.answeredQuestions
-                        .filter(it => it.questionCode == this.$props.questionCode)[0]
-                    this.answerCode = answer ? answer.answerCode : undefined;
-                    this.answerText = answer ? answer.answerText : undefined;
+                    watchSurvey(this, newSurvey);
                 }
             }
         }
     }
-    const Survey = {
-        questionDefinitions: {
-            type: Array,
-            default: () => [{
-                questionCode: String,
-                possibleAnswers: Array
-            }]
-        },
-        answeredQuestions: {
-            type: Array,
-            default: () => [{
-                questionCode: "",
-                answerCode: "",
-                answerText: ""
-            }]
-        }
+    const Survey = require("../../model/Survey");
+
+    function watchSurvey(component, newSurvey) {
+        const possibleAnswers = newSurvey.questionDefinitions
+            .filter(it => it.questionCode == component.$props.questionCode)[0]
+            .possibleAnswers;
+        component.possibleAnswers = possibleAnswers;
+
+        const answer = newSurvey.answeredQuestions
+            .filter(it => it.questionCode == component.$props.questionCode)[0]
+        component.answerCode = answer ? answer.answerCode : undefined;
+        component.answerText = answer ? answer.answerText : undefined;
     }
+    watchSurvey.bind(this);
 </script>
 
 <style src="@/assets/survey.css">
