@@ -3,6 +3,7 @@ package pl.javorex.survey.application.adapter;
 import pl.javorex.survey.domain.RespondentID;
 import pl.javorex.survey.domain.Survey;
 import pl.javorex.survey.domain.SurveyRepository;
+import pl.javorex.survey.domain.surveydefinition.SurveyDefinition;
 
 import java.util.HashSet;
 import java.util.Optional;

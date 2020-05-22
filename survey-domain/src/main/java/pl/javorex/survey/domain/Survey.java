@@ -29,6 +29,10 @@ public final class Survey {
     this.answeredQuestions = answeredQuestions;
   }
 
+  public void answer(AnsweredQuestion answeredQuestion) {
+    this.answeredQuestions.add(answeredQuestion);
+  }
+
   public SurveyDefinition getDefinition() {
     return definition;
   }
