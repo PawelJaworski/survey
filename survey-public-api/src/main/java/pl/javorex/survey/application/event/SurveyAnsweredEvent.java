@@ -38,4 +38,8 @@ public final class SurveyAnsweredEvent<R> {
                 .append("surveyVersion", surveyVersion)
                 .toString();
     }
+
+    public List<AnsweredQuestionDto> getAnsweredQuestions() {
+        return answeredQuestions;
+    }
 }

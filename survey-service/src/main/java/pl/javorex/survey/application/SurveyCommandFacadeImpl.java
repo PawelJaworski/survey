@@ -4,6 +4,7 @@ import pl.javorex.survey.application.command.SurveyAnswerCmd;
 import pl.javorex.survey.application.event.SurveyAnsweredEvent;
 import pl.javorex.survey.application.event.SurveyEventBus;
 import pl.javorex.survey.application.exception.SurveyNotFoundException;
+import pl.javorex.survey.application.response.AnsweredQuestionDto;
 import pl.javorex.survey.application.response.ApiResult;
 import pl.javorex.survey.domain.AnsweredQuestion;
 import pl.javorex.survey.domain.RespondentID;
@@ -56,8 +57,11 @@ public final class SurveyCommandFacadeImpl implements SurveyCommandFacade {
 
     surveyRepository.save(survey);
 
+    List<AnsweredQuestionDto> answeredQuestionDtos = answeredQuestions.stream()
+            .map(it -> new AnsweredQuestionDto(it.getQuestionCode(), it.getAnswerCode(), it.getAnswerText()))
+            .collect(Collectors.toList());
     eventBus.publish(
-            new SurveyAnsweredEvent(respondentID.getRaw(), surveyType, surveyVersion, answeredQuestions)
+            new SurveyAnsweredEvent(respondentID.getRaw(), surveyType, surveyVersion, answeredQuestionDtos)
     );
 
     return ApiResult.success();

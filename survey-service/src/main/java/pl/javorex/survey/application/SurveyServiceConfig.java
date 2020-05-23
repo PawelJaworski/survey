@@ -18,17 +18,9 @@ public final class SurveyServiceConfig {
     private final SurveyRepository surveyRepository;
     private final SurveyEventBus eventBus;
 
-    public SurveyServiceConfig() {
-        this(new SurveyDefinitionRepositoryInMemoryImpl(), new SurveyRepositoryInMemoryImpl(),
-                new SurveyEventBusSystemOutImpl());
-        SurveyDefinition surveyDefinition = surveyDefinitionRepository
-                .findByTypeAndVersion("FINANCIAL_NEEDS", "UNIT_LINKED.v1")
-                .orElseThrow(() -> new IllegalStateException("Cannot find survey definition to init data."));
-        Survey survey = new Survey(RespondentID.respondentIDOf("javorex"), surveyDefinition);
-        survey.answer(new AnsweredQuestion("SOURCE_OF_INCOME", "GAMESTER", Optional.empty()));
-        survey.answer(new AnsweredQuestion("PURPOSE_OF_SAVING", "OTHER", Optional.of("For cocaine.")));
-        surveyRepository.save(survey);
-    }
+public static Builder builder() {
+    return new Builder();
+}
 
     public SurveyServiceConfig(SurveyDefinitionRepository surveyDefinitionRepository,
                                SurveyRepository surveyRepository, SurveyEventBus eventBus) {
@@ -43,5 +35,32 @@ public final class SurveyServiceConfig {
 
     public SurveyCommandFacade surveyCommandFacade() {
         return new SurveyCommandFacadeImpl(surveyDefinitionRepository, surveyRepository, eventBus);
+    }
+
+    public static class Builder {
+        private SurveyDefinitionRepository surveyDefinitionRepository = new SurveyDefinitionRepositoryInMemoryImpl();
+        private SurveyRepository surveyRepository = new SurveyRepositoryInMemoryImpl();
+        private SurveyEventBus eventBus = new SurveyEventBusSystemOutImpl();
+
+        public <C>Builder withEventBus(SurveyEventBus<C> eventBus) {
+            this.eventBus = eventBus;
+
+            return this;
+        }
+
+        public Builder initTestData() {
+            SurveyDefinition surveyDefinition = surveyDefinitionRepository
+                    .findByTypeAndVersion("FINANCIAL_NEEDS", "UNIT_LINKED.v1")
+                    .orElseThrow(() -> new IllegalStateException("Cannot find survey definition to init data."));
+            Survey survey = new Survey(RespondentID.respondentIDOf("javorex"), surveyDefinition);
+            survey.answer(new AnsweredQuestion("SOURCE_OF_INCOME", "GAMESTER", Optional.empty()));
+            survey.answer(new AnsweredQuestion("PURPOSE_OF_SAVING", "OTHER", Optional.of("For cocaine.")));
+            surveyRepository.save(survey);
+
+            return this;
+        }
+        public SurveyServiceConfig build() {
+            return new SurveyServiceConfig(surveyDefinitionRepository, surveyRepository, eventBus);
+        }
     }
 }

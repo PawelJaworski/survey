@@ -1,9 +1,11 @@
 package pl.javorex.financialneeds.domain;
 
+import pl.javorex.financialneeds.domain.policy.ScoringCalculationPolicy;
+
 public final class Scoring {
     private final CustomerID customerID;
     private final ScoringType type;
-    private final ScoringResult result;
+    private ScoringResult result;
 
     public Scoring(CustomerID customerID, ScoringType type, ScoringResult result) {
         this.customerID = customerID;
@@ -25,5 +27,9 @@ public final class Scoring {
 
     public ScoringResult getResult() {
         return result;
+    }
+
+    public void calculate(ScoringCalculationPolicy scoringCalculationPolicy) {
+        result = scoringCalculationPolicy.calculate();
     }
 }

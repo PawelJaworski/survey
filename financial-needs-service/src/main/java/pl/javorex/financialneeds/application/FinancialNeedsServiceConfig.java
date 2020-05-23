@@ -17,4 +17,8 @@ public final class FinancialNeedsServiceConfig {
     public FinancialNeedsQueryFacadeImpl financialNeedsQueryFacade() {
         return new FinancialNeedsQueryFacadeImpl(scoringRepository);
     }
+
+    public FinancialNeedsCommandHandlers financialNeedsCommandHandlers() {
+        return new FinancialNeedsCommandHandlers(scoringRepository);
+    }
 }
