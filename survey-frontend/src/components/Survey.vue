@@ -1,5 +1,6 @@
 <template @surveysubmitted.native="surveySubmitted">
   <div class="hello"  >
+    <span>{{scoring}}</span>
     <Question v-for="question in survey.questionDefinitions"
               v-bind:key="question.questionCode"
               v-bind:question-code="question.questionCode"
@@ -24,11 +25,13 @@ export default {
   components: {Question},
   data: function () {
     return {
-      survey: {}
+      survey: {},
+      scoring: '--'
     }
   },
   mounted() {
     this.fetchData();
+    this.updateScoring();
   },
   methods: {
     surveySubmitted() {
@@ -41,12 +44,21 @@ export default {
 
       this.$http.post(api + '/surveys/FINANCIAL_NEEDS/UNIT_LINKED.v1/javorex/answer', {
         answers: answers
-      }).then(this.fetchData);
+      }).then(this.fetchData).then(this.updateScoring);
     },
     fetchData() {
       this.$http.get(api + '/surveys/FINANCIAL_NEEDS/UNIT_LINKED.v1/javorex')
               .then((result) => {
                 this.survey = result.data;
+              });
+    },
+    updateScoring() {
+      this.$http.get(api + '/financialneeds/scorings/javorex')
+              .then((result) => {
+                const {data} = result;
+                this.scoring = data
+                        .map(it => it.type + ': ' + it.result)
+                        .join(', ');
               });
     }
   }
