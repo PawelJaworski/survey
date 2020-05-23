@@ -1,6 +1,7 @@
 package pl.javorex.survey.application.response;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,10 @@ public class ApiResult<T> {
 
   public static <T>ApiResult<T> successOf(T value) {
     return new ApiResult(value, new ArrayList<>());
+  }
+
+  public static <T>ApiResult<T> failureOf(String error) {
+    return new ApiResult(Collections.singletonList(error));
   }
 
   public static <T>ApiResult<T> failureOf(List<String> errors) {
