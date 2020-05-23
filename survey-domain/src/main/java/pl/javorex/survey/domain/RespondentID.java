@@ -6,7 +6,7 @@ public final class RespondentID<T> {
   private final T raw;
 
   public static <T>RespondentID<T> respondentIDOf(T obj) {
-    return new RespondentID<T>(obj);
+    return new RespondentID<>(obj);
   }
 
   private RespondentID(T raw) {

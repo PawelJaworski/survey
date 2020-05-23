@@ -10,6 +10,9 @@
       <module>survey-domain</module>
       <module>survey-public-api</module>
       <module>survey-service</module>
+      <module>financial-needs-domain</module>
+      <module>financial-needs-public-api</module>
+      <module>financial-needs-service</module>
       <module>survey-spring-app</module>
     </modules>
 </project>
