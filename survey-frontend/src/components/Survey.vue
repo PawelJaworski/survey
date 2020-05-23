@@ -1,7 +1,6 @@
 <template @surveysubmitted.native="surveySubmitted">
   <div class="hello"  >
-    <Question
-            v-for="question in survey.questionDefinitions"
+    <Question v-for="question in survey.questionDefinitions"
               v-bind:key="question.questionCode"
               v-bind:question-code="question.questionCode"
               v-bind:survey="survey"></Question>
@@ -33,7 +32,6 @@ export default {
   },
   methods: {
     surveySubmitted() {
-      console.log('submitted... ' + JSON.stringify(Vue.prototype.$store.getAnswers()));
       const answers = []
       for (const question in Vue.prototype.$store.getAnswers()) {
         for (const answer in Vue.prototype.$store.getAnswers()[question]) {
@@ -57,19 +55,5 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
 </style>

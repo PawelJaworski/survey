@@ -49,7 +49,7 @@
         },
         methods: {
             changed(questionCode, answerCode) {
-                console.log(questionCode + ', ' + answerCode);
+                //console.log(questionCode + ', ' + answerCode);
                 Vue.prototype.$store.setAnswer(questionCode, answerCode);
             }
         }

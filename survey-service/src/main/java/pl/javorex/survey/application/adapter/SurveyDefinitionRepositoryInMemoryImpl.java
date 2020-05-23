@@ -1,6 +1,7 @@
 package pl.javorex.survey.application.adapter;
 
 import pl.javorex.survey.domain.surveydefinition.QuestionDefinition;
+import pl.javorex.survey.domain.surveydefinition.QuestionGroup;
 import pl.javorex.survey.domain.surveydefinition.SurveyDefinition;
 import pl.javorex.survey.domain.surveydefinition.SurveyDefinitionRepository;
 
@@ -37,7 +38,7 @@ public final class SurveyDefinitionRepositoryInMemoryImpl implements SurveyDefin
         possibleAnswers.add("CONTRACT");
         possibleAnswers.add("UNEMPLOYED");
 
-        return new QuestionDefinition(questionCode, possibleAnswers);
+        return new QuestionDefinition(questionCode, possibleAnswers, QuestionGroup.notAssigned());
     }
 
     private QuestionDefinition defineAgeRange() {
@@ -47,7 +48,7 @@ public final class SurveyDefinitionRepositoryInMemoryImpl implements SurveyDefin
         possibleAnswers.add("FROM_31_TO_60");
         possibleAnswers.add("OVER_60");
 
-        return new QuestionDefinition(questionCode, possibleAnswers);
+        return new QuestionDefinition(questionCode, possibleAnswers, QuestionGroup.notAssigned());
     }
 
     private QuestionDefinition definePurposeOfSaving() {
@@ -57,6 +58,6 @@ public final class SurveyDefinitionRepositoryInMemoryImpl implements SurveyDefin
         possibleAnswers.add("FOR_HOLIDAY");
         possibleAnswers.add("OTHER");
 
-        return new QuestionDefinition(questionCode, possibleAnswers);
+        return new QuestionDefinition(questionCode, possibleAnswers, QuestionGroup.notAssigned());
     }
 }

@@ -10,7 +10,7 @@ export const SurveyStore = {
         questionAnswers[answerCode] = answerText || '';
         this.answers[questionCode] = questionAnswers;
 
-        console.log('question ' + questionCode + ' answered: ' + JSON.stringify(this.answers[questionCode]))
+        //console.log('question ' + questionCode + ' answered: ' + JSON.stringify(this.answers[questionCode]))
     },
 
     getAnswers() {
