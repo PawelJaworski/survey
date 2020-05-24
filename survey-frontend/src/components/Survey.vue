@@ -46,11 +46,9 @@ export default {
       }
 
       this.$http.post(api + '/surveys/financialNeeds/javorex/answer', { answers })
-              .then(it => {
-                if (it.data.errors.length > 0) {
-                  this.errors = it.data.errors.join(', ');
-                }
-                this.fetchData();
+              .then(this.fetchData)
+              .catch(it => {
+                  this.errors = it.response.data.errors.join('<\br>');
               })
               .then(this.updateScoring);
     },

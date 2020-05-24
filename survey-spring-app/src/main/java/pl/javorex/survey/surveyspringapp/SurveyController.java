@@ -1,5 +1,6 @@
 package pl.javorex.survey.surveyspringapp;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.javorex.financialneeds.application.ActualFinancialNeedsSurveyQuery;
@@ -41,7 +42,7 @@ public class SurveyController {
     }
 
     @PostMapping("/surveys/financialNeeds/{respondentID}/answer")
-    public ResponseEntity<ApiResult> answerSurvey(@PathVariable String respondentID,
+    public ResponseEntity answerSurvey(@PathVariable String respondentID,
                                                   @RequestBody SurveyAnswerRequest answerRequest) {
 
         Set<AnswerCmd> answers = answerRequest.getAnswers()
@@ -51,6 +52,10 @@ public class SurveyController {
 
         FinancialNeedsAnswerCmd cmd = new FinancialNeedsAnswerCmd(respondentID, answers);
         ApiResult result = financialNeedsSurveyCommandHandlers.answerSurvey( cmd );
+
+        if (result.getErrors().size() > 0) {
+            return new ResponseEntity<>(result, HttpStatus.NOT_ACCEPTABLE);
+        }
 
         return ResponseEntity.ok( result );
     }
