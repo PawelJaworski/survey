@@ -1,4 +1,4 @@
-package pl.javorex.financialneeds.application.response;
+package pl.javorex.financialneeds.application.dto;
 
 public class ScoringDto {
     private final String type;

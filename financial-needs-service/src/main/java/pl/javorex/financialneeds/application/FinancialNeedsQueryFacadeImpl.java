@@ -1,7 +1,7 @@
 package pl.javorex.financialneeds.application;
 
 import pl.javorex.financialneeds.application.query.ScoringByCustomerID;
-import pl.javorex.financialneeds.application.response.ScoringDto;
+import pl.javorex.financialneeds.application.dto.ScoringDto;
 import pl.javorex.financialneeds.domain.CustomerID;
 import pl.javorex.financialneeds.domain.ScoringRepository;
 
