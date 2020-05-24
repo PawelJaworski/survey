@@ -31,15 +31,15 @@ public final class SurveyCommandHandlers {
     surveyValidatorsStore.setValidatorForTypeAndVersion(validator, type, version);
   }
 
-  public ApiResult answerSurvey(SurveyAnswerCmd cmd) {
+  public List<String> answerSurveyElseErrors(SurveyAnswerCmd cmd) {
     try {
       return tryAnswerSurvey(cmd);
     } catch(Exception e) {
-      return ApiResult.failureOf(e.getMessage());
+      return Collections.singletonList(e.getMessage());
     }
   }
 
-  private ApiResult tryAnswerSurvey(SurveyAnswerCmd cmd){
+  private List<String> tryAnswerSurvey(SurveyAnswerCmd cmd){
     RespondentID<?> respondentID = RespondentID.respondentIDOf(cmd.respondentID);
     String surveyType = cmd.surveyType;
     String surveyVersion = cmd.surveyVersion;
@@ -53,7 +53,7 @@ public final class SurveyCommandHandlers {
 
     List<String> validationErrors = validate(surveyDefinition, answeredQuestions);
     if (validationErrors.size() > 0){
-      return ApiResult.failureOf(validationErrors);
+      return validationErrors;
     }
 
     Optional<Survey> foundSurvey = surveyRepository.findByRespondentIDAndType(respondentID, surveyType);
@@ -63,7 +63,7 @@ public final class SurveyCommandHandlers {
 
     surveyRepository.save(survey);
 
-    return ApiResult.success();
+    return Collections.emptyList();
   }
 
   private List<String> validate(SurveyDefinition surveyDefinition, List<AnsweredQuestion> answeredQuestions) {

@@ -7,14 +7,13 @@ import pl.javorex.financialneeds.application.ActualFinancialNeedsSurveyQuery;
 import pl.javorex.financialneeds.application.FinancialNeedsSurveyCommandHandlers;
 import pl.javorex.financialneeds.application.FinancialNeedsSurveyQueryHandlers;
 import pl.javorex.financialneeds.application.command.FinancialNeedsAnswerCmd;
-import pl.javorex.financialneeds.application.command.ScoringCalculationCmd;
 import pl.javorex.survey.application.command.AnswerCmd;
-import pl.javorex.survey.application.command.SurveyAnswerCmd;
-import pl.javorex.survey.application.response.ApiResult;
 import pl.javorex.survey.application.response.SurveyDto;
 import pl.javorex.survey.surveyspringapp.rest.request.SurveyAnswerRequest;
 import pl.javorex.survey.surveyspringapp.rest.response.SurveyResponse;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,12 +50,14 @@ public class SurveyController {
                 .collect(Collectors.toSet());
 
         FinancialNeedsAnswerCmd cmd = new FinancialNeedsAnswerCmd(respondentID, answers);
-        ApiResult result = financialNeedsSurveyCommandHandlers.answerSurvey( cmd );
+        List<String> errors = financialNeedsSurveyCommandHandlers.answerSurveyElseErrors(cmd);
 
-        if (result.getErrors().size() > 0) {
-            return new ResponseEntity<>(result, HttpStatus.NOT_ACCEPTABLE);
+        if (errors.size() > 0) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                    .body(errors);
         }
 
-        return ResponseEntity.ok( result );
+        return ResponseEntity.ok()
+                .build();
     }
 }

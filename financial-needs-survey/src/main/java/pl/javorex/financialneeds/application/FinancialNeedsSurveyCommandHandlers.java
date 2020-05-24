@@ -5,9 +5,9 @@ import pl.javorex.financialneeds.application.command.ScoringCalculationCmd;
 import pl.javorex.survey.application.SurveyCommandHandlers;
 import pl.javorex.survey.application.command.AnswerCmd;
 import pl.javorex.survey.application.command.SurveyAnswerCmd;
-import pl.javorex.survey.application.response.AnsweredQuestionDto;
-import pl.javorex.survey.application.response.ApiResult;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -23,12 +23,12 @@ public final class FinancialNeedsSurveyCommandHandlers {
         this.financialNeedsCommandHandlers = financialNeedsCommandHandlers;
     }
 
-    public ApiResult answerSurvey(FinancialNeedsAnswerCmd cmd) {
-        ApiResult result = surveyCommandHandlers.answerSurvey(
+    public List<String> answerSurveyElseErrors(FinancialNeedsAnswerCmd cmd) {
+        List<String> errors = surveyCommandHandlers.answerSurveyElseErrors(
                 new SurveyAnswerCmd(cmd.getRespondentID(), SURVEY_TYPE, SURVEY_VERSION, cmd.getAnswers())
         );
-        if (result.getErrors().size() > 0) {
-            return result;
+        if (errors.size() > 0) {
+            return errors;
         }
 
         Object customerID = cmd.getRespondentID();
@@ -37,6 +37,6 @@ public final class FinancialNeedsSurveyCommandHandlers {
         ScoringCalculationCmd scoringCalculation = new ScoringCalculationCmd(customerID, answerByQuestion);
         financialNeedsCommandHandlers.calculateScoring(scoringCalculation);
 
-        return ApiResult.success();
+        return Collections.emptyList();
     }
 }
