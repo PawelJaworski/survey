@@ -29,8 +29,8 @@ public static Builder builder() {
         this.eventBus = eventBus;
     }
 
-    public SurveyQueryFacade surveyQueryFacade() {
-        return new SurveyQueryFacadeImpl(surveyDefinitionRepository, surveyRepository);
+    public SurveyQueryHandlers surveyQueryFacade() {
+        return new SurveyQueryHandlers(surveyDefinitionRepository, surveyRepository);
     }
 
     public SurveyCommandFacade surveyCommandFacade() {

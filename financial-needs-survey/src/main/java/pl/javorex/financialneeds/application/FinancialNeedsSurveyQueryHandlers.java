@@ -1,6 +1,7 @@
 package pl.javorex.financialneeds.application;
 
 import pl.javorex.survey.application.SurveyQueryFacade;
+import pl.javorex.survey.application.SurveyQueryHandlers;
 import pl.javorex.survey.application.query.SurveyByTypeAndVersionAndRespondentQuery;
 import pl.javorex.survey.application.response.SurveyDto;
 
@@ -8,9 +9,9 @@ import static pl.javorex.financialneeds.application.FinancialNeedsActualSurvey.S
 import static pl.javorex.financialneeds.application.FinancialNeedsActualSurvey.SURVEY_VERSION;
 
 public final class FinancialNeedsSurveyQueryHandlers<R> {
-    private final SurveyQueryFacade surveyQueryHandlers;
+    private final SurveyQueryHandlers surveyQueryHandlers;
 
-    public FinancialNeedsSurveyQueryHandlers(SurveyQueryFacade surveyQueryHandlers) {
+    public FinancialNeedsSurveyQueryHandlers(SurveyQueryHandlers surveyQueryHandlers) {
         this.surveyQueryHandlers = surveyQueryHandlers;
     }
 

@@ -10,26 +10,23 @@ import pl.javorex.survey.domain.surveydefinition.QuestionDefinition;
 import pl.javorex.survey.domain.surveydefinition.SurveyDefinition;
 import pl.javorex.survey.domain.surveydefinition.SurveyDefinitionRepository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static pl.javorex.survey.domain.RespondentID.respondentIDOf;
 
-final class SurveyQueryFacadeImpl implements SurveyQueryFacade {
+public final class SurveyQueryHandlers {
   private final SurveyDefinitionRepository surveyDefinitionRepository;
   private final SurveyRepository surveyRepository;
 
   private final SurveyDtoFactory surveyDtoFactory = new SurveyDtoFactory();
 
-  SurveyQueryFacadeImpl(SurveyDefinitionRepository surveyDefinitionRepository,
-                               SurveyRepository surveyRepository) {
+  SurveyQueryHandlers(SurveyDefinitionRepository surveyDefinitionRepository,
+                      SurveyRepository surveyRepository) {
     this.surveyDefinitionRepository = surveyDefinitionRepository;
     this.surveyRepository = surveyRepository;
   }
 
-  @Override
   public SurveyDto findSurveyByRespondentIDAndType(SurveyByTypeAndVersionAndRespondentQuery query) {
     RespondentID respondentID =  respondentIDOf( query.respondentID );
     String surveyType = query.surveyType;

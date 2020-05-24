@@ -9,6 +9,7 @@ import pl.javorex.financialneeds.application.*;
 import pl.javorex.financialneeds.application.query.FinancialNeedsQueryFacade;
 import pl.javorex.survey.application.SurveyCommandFacade;
 import pl.javorex.survey.application.SurveyQueryFacade;
+import pl.javorex.survey.application.SurveyQueryHandlers;
 import pl.javorex.survey.application.SurveyServiceConfig;
 import pl.javorex.survey.application.event.SurveyEventBus;
 
@@ -39,7 +40,7 @@ public class SurveyAppConfig {
     }
 
     @Bean
-    SurveyQueryFacade surveyQueryFacade() {
+    SurveyQueryHandlers surveyQueryFacade() {
         return config.surveyQueryFacade();
     }
 
