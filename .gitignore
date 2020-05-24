@@ -29,3 +29,4 @@ hs_err_pid*
 /survey-service/target
 
 /financial-needs-service/target
+/financial-needs-survey/.idea/
