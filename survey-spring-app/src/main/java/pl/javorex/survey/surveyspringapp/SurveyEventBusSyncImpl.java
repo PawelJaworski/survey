@@ -22,13 +22,16 @@ public final class SurveyEventBusSyncImpl implements SurveyEventBus<String> {
 
     @Override
     public void publish(SurveyAnsweredEvent<String> event) {
-        if (event.getSurveyType().equals(FINANCIAL_NEEDS_TYPE)
-                && event.getSurveyVersion().equals(FINANCIAL_NEEDS_VERSION)) {
-
+        if (isEventForActualFinancialNeedsSurvey(event)) {
             Map<String, String> answerByQuestion = event.getAnsweredQuestions().stream()
                     .collect(Collectors.toMap(AnsweredQuestionDto::getQuestionCode, AnsweredQuestionDto::getAnswerCode));
             ScoringCalculationCmd<String> cmd = new ScoringCalculationCmd<>(event.getRespondentID(), answerByQuestion);
             financialNeedsCommandHandlers.calculateScoring(cmd);
         }
+    }
+
+    private boolean isEventForActualFinancialNeedsSurvey(SurveyAnsweredEvent<String> event) {
+        return event.getSurveyType().equals(FINANCIAL_NEEDS_TYPE)
+                && event.getSurveyVersion().equals(FINANCIAL_NEEDS_VERSION);
     }
 }
