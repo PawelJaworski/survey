@@ -13,6 +13,7 @@
       <module>financial-needs-domain</module>
       <module>financial-needs-public-api</module>
       <module>financial-needs-service</module>
+      <module>financial-needs-survey</module>
       <module>survey-spring-app</module>
     </modules>
 </project>

@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import pl.javorex.financialneeds.application.FinancialNeedsCommandHandlers;
-import pl.javorex.financialneeds.application.FinancialNeedsQueryFacadeImpl;
-import pl.javorex.financialneeds.application.FinancialNeedsServiceConfig;
+import pl.javorex.financialneeds.application.*;
 import pl.javorex.financialneeds.application.query.FinancialNeedsQueryFacade;
 import pl.javorex.survey.application.SurveyCommandFacade;
 import pl.javorex.survey.application.SurveyQueryFacade;
@@ -24,7 +22,7 @@ public class SurveyAppConfig {
             .withEventBus(surveyEventBus)
             .initTestData()
             .build();
-
+    private final FinancialNeedsSurveyConfig financialNeedsSurveyConfig = new FinancialNeedsSurveyConfig();
 
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
@@ -33,6 +31,11 @@ public class SurveyAppConfig {
         MappingJackson2HttpMessageConverter converter =
                 new MappingJackson2HttpMessageConverter(mapper);
         return converter;
+    }
+
+    @Bean
+    FinancialNeedsSurveyQueryHandlers financialNeedsSurveyQueryHandlers() {
+        return new FinancialNeedsSurveyQueryHandlers(surveyQueryFacade());
     }
 
     @Bean

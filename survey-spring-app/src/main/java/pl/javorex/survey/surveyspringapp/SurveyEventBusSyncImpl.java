@@ -5,7 +5,6 @@ import pl.javorex.financialneeds.application.command.ScoringCalculationCmd;
 import pl.javorex.survey.application.event.SurveyAnsweredEvent;
 import pl.javorex.survey.application.event.SurveyEventBus;
 import pl.javorex.survey.application.response.AnsweredQuestionDto;
-import pl.javorex.survey.domain.AnsweredQuestion;
 
 import java.util.Map;
 import java.util.stream.Collectors;

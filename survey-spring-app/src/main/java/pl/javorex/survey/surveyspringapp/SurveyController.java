@@ -2,6 +2,8 @@ package pl.javorex.survey.surveyspringapp;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.javorex.financialneeds.application.ActualFinancialNeedsSurveyQuery;
+import pl.javorex.financialneeds.application.FinancialNeedsSurveyQueryHandlers;
 import pl.javorex.survey.application.SurveyCommandFacade;
 import pl.javorex.survey.application.SurveyQueryFacade;
 import pl.javorex.survey.application.command.AnswerCmd;
@@ -18,21 +20,20 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class SurveyController {
-    private final SurveyQueryFacade surveyQueryFacade;
     private final SurveyCommandFacade surveyCommandFacade;
+    private final FinancialNeedsSurveyQueryHandlers financialNeedsSurveyQueryHandlers;
 
-    public SurveyController(SurveyQueryFacade surveyQueryFacade, SurveyCommandFacade surveyCommandFacade) {
-        this.surveyQueryFacade = surveyQueryFacade;
+    public SurveyController(SurveyCommandFacade surveyCommandFacade,
+                            FinancialNeedsSurveyQueryHandlers financialNeedsSurveyQueryHandlers) {
         this.surveyCommandFacade = surveyCommandFacade;
+        this.financialNeedsSurveyQueryHandlers = financialNeedsSurveyQueryHandlers;
     }
 
-    @GetMapping("/surveys/{surveyType}/{version}/{respondentID}")
-    public ResponseEntity<SurveyResponse> getSurvey(@PathVariable String surveyType, @PathVariable String version,
-                                                    @PathVariable String respondentID) {
-        SurveyByTypeAndVersionAndRespondentQuery<String> query = new SurveyByTypeAndVersionAndRespondentQuery<>(
-                surveyType, version, respondentID );
+    @GetMapping("/surveys/actualFinancialNeeds/{respondentID}")
+    public ResponseEntity<SurveyResponse> getSurvey(@PathVariable String respondentID) {
+        ActualFinancialNeedsSurveyQuery<String> query = new ActualFinancialNeedsSurveyQuery<>(respondentID);
 
-        SurveyDto surveyDto = surveyQueryFacade.findSurveyByRespondentIDAndType( query );
+        SurveyDto surveyDto = financialNeedsSurveyQueryHandlers.findActualFinancialNeedsSurvey(query);
 
         return ResponseEntity.ok(
                 new SurveyResponse( surveyDto.questionDefinitions, surveyDto.answeredQuestions )

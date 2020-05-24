@@ -47,7 +47,7 @@ export default {
       }).then(this.fetchData).then(this.updateScoring);
     },
     fetchData() {
-      this.$http.get(api + '/surveys/FINANCIAL_NEEDS/UNIT_LINKED.v1/javorex')
+      this.$http.get(api + '/surveys/actualFinancialNeeds/javorex')
               .then((result) => {
                 this.survey = result.data;
               });
