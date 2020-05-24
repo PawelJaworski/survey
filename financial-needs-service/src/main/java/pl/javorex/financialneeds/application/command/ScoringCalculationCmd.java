@@ -2,7 +2,7 @@ package pl.javorex.financialneeds.application.command;
 
 import java.util.Map;
 
-public final class ScoringCalculationCmd<Object> {
+public final class ScoringCalculationCmd {
     private final Object customerID;
     private final Map<String, String> answerByQuestion;
 

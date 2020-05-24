@@ -7,22 +7,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import pl.javorex.financialneeds.application.*;
 import pl.javorex.survey.application.*;
-import pl.javorex.survey.application.event.SurveyEventBus;
 
 @Configuration
 public class SurveyAppConfig {
     private final FinancialNeedsServiceConfig financialNeedsServiceConfig = new FinancialNeedsServiceConfig();
     private final FinancialNeedsCommandHandlers financialNeedsCommandHandlers = financialNeedsServiceConfig
             .financialNeedsCommandHandlers();
-    private final SurveyEventBus<String> surveyEventBus = new SurveyEventBusSyncImpl(financialNeedsCommandHandlers);
     private final SurveyServiceConfig config = SurveyServiceConfig.builder()
-            .withEventBus(surveyEventBus)
             .initTestData()
             .build();
     private final SurveyQueryHandlers surveyQueryHandlers = config.surveyQueryFacade();
-    private final SurveyCommandFacadeImpl surveyCommandHandlers = config.surveyCommandFacade();
+    private final SurveyCommandHandlers surveyCommandHandlers = config.surveyCommandFacade();
     private final FinancialNeedsSurveyConfig financialNeedsSurveyConfig = new FinancialNeedsSurveyConfig(
-            surveyQueryHandlers, surveyCommandHandlers );
+            surveyQueryHandlers, surveyCommandHandlers, financialNeedsCommandHandlers );
 
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
@@ -48,7 +45,7 @@ public class SurveyAppConfig {
     }
 
     @Bean
-    SurveyCommandFacadeImpl surveyCommandHandlers() {
+    SurveyCommandHandlers surveyCommandHandlers() {
         return surveyCommandHandlers;
     }
 

@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     surveySubmitted() {
+      this.errors = '';
       const answers = []
       for (const question in Vue.prototype.$store.getAnswers()) {
         for (const answer in Vue.prototype.$store.getAnswers()[question]) {

@@ -1,11 +1,9 @@
 package pl.javorex.survey.application;
 
 import pl.javorex.survey.application.command.SurveyAnswerCmd;
-import pl.javorex.survey.application.event.SurveyAnsweredEvent;
-import pl.javorex.survey.application.event.SurveyEventBus;
 import pl.javorex.survey.application.exception.SurveyNotFoundException;
-import pl.javorex.survey.application.response.AnsweredQuestionDto;
 import pl.javorex.survey.application.response.ApiResult;
+import pl.javorex.survey.application.validation.SurveyValidator;
 import pl.javorex.survey.domain.AnsweredQuestion;
 import pl.javorex.survey.domain.RespondentID;
 import pl.javorex.survey.domain.Survey;
@@ -13,23 +11,26 @@ import pl.javorex.survey.domain.SurveyRepository;
 import pl.javorex.survey.domain.surveydefinition.SurveyDefinition;
 import pl.javorex.survey.domain.surveydefinition.SurveyDefinitionRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public final class SurveyCommandFacadeImpl implements SurveyCommandFacade {
+public final class SurveyCommandHandlers {
   private final SurveyDefinitionRepository surveyDefinitionRepository;
   private final SurveyRepository surveyRepository;
-  private final SurveyEventBus eventBus;
+  private final SurveyValidatorsStore surveyValidatorsStore = new SurveyValidatorsStore();
 
-  public SurveyCommandFacadeImpl(SurveyDefinitionRepository surveyDefinitionRepository,
-                                 SurveyRepository<?> surveyRepository, SurveyEventBus eventBus) {
+  public SurveyCommandHandlers(SurveyDefinitionRepository surveyDefinitionRepository,
+                               SurveyRepository<?> surveyRepository) {
     this.surveyDefinitionRepository = surveyDefinitionRepository;
     this.surveyRepository = surveyRepository;
-    this.eventBus = eventBus;
   }
 
-  @Override
+  public void acceptValidatorForTypeAndVersion(SurveyValidator validator, String type, String version) {
+    surveyValidatorsStore.setValidatorForTypeAndVersion(validator, type, version);
+  }
+
   public ApiResult answerSurvey(SurveyAnswerCmd cmd) {
     try {
       return tryAnswerSurvey(cmd);
@@ -47,8 +48,13 @@ public final class SurveyCommandFacadeImpl implements SurveyCommandFacade {
             .orElseThrow(() -> new SurveyNotFoundException(surveyType, surveyVersion));
 
     List<AnsweredQuestion> answeredQuestions = cmd.answers.stream()
-            .map(it -> new AnsweredQuestion( it.questionCode, it.answerCode, it.answerText ))
+            .map(it -> new AnsweredQuestion( it.getQuestionCode(), it.getAnswerCode(), it.getAnswerText() ))
             .collect(Collectors.toList());
+
+    List<String> validationErrors = validate(surveyDefinition, answeredQuestions);
+    if (validationErrors.size() > 0){
+      return ApiResult.failureOf(validationErrors);
+    }
 
     Optional<Survey> foundSurvey = surveyRepository.findByRespondentIDAndType(respondentID, surveyType);
     Survey survey = foundSurvey
@@ -57,13 +63,17 @@ public final class SurveyCommandFacadeImpl implements SurveyCommandFacade {
 
     surveyRepository.save(survey);
 
-    List<AnsweredQuestionDto> answeredQuestionDtos = answeredQuestions.stream()
-            .map(it -> new AnsweredQuestionDto(it.getQuestionCode(), it.getAnswerCode(), it.getAnswerText()))
-            .collect(Collectors.toList());
-    eventBus.publish(
-            new SurveyAnsweredEvent(respondentID.getRaw(), surveyType, surveyVersion, answeredQuestionDtos)
-    );
-
     return ApiResult.success();
+  }
+
+  private List<String> validate(SurveyDefinition surveyDefinition, List<AnsweredQuestion> answeredQuestions) {
+    Optional<SurveyValidator> validator = surveyValidatorsStore
+            .getForSurveyTypeAndVersion( surveyDefinition.getType(), surveyDefinition.getVersion() );
+
+    if (!validator.isPresent()) {
+      return Collections.emptyList();
+    }
+
+    return validator.get().validate(surveyDefinition, answeredQuestions);
   }
 }

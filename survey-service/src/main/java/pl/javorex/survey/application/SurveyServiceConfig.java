@@ -1,9 +1,7 @@
 package pl.javorex.survey.application;
 
 import pl.javorex.survey.application.adapter.SurveyDefinitionRepositoryInMemoryImpl;
-import pl.javorex.survey.application.adapter.SurveyEventBusSystemOutImpl;
 import pl.javorex.survey.application.adapter.SurveyRepositoryInMemoryImpl;
-import pl.javorex.survey.application.event.SurveyEventBus;
 import pl.javorex.survey.domain.AnsweredQuestion;
 import pl.javorex.survey.domain.RespondentID;
 import pl.javorex.survey.domain.Survey;
@@ -16,37 +14,28 @@ import java.util.Optional;
 public final class SurveyServiceConfig {
     private final SurveyDefinitionRepository surveyDefinitionRepository;
     private final SurveyRepository surveyRepository;
-    private final SurveyEventBus eventBus;
 
-public static Builder builder() {
-    return new Builder();
-}
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public SurveyServiceConfig(SurveyDefinitionRepository surveyDefinitionRepository,
-                               SurveyRepository surveyRepository, SurveyEventBus eventBus) {
+                               SurveyRepository surveyRepository) {
         this.surveyDefinitionRepository = surveyDefinitionRepository;
         this.surveyRepository = surveyRepository;
-        this.eventBus = eventBus;
     }
 
     public SurveyQueryHandlers surveyQueryFacade() {
         return new SurveyQueryHandlers(surveyDefinitionRepository, surveyRepository);
     }
 
-    public SurveyCommandFacadeImpl surveyCommandFacade() {
-        return new SurveyCommandFacadeImpl(surveyDefinitionRepository, surveyRepository, eventBus);
+    public SurveyCommandHandlers surveyCommandFacade() {
+        return new SurveyCommandHandlers(surveyDefinitionRepository, surveyRepository);
     }
 
     public static class Builder {
         private SurveyDefinitionRepository surveyDefinitionRepository = new SurveyDefinitionRepositoryInMemoryImpl();
         private SurveyRepository surveyRepository = new SurveyRepositoryInMemoryImpl();
-        private SurveyEventBus eventBus = new SurveyEventBusSystemOutImpl();
-
-        public <C>Builder withEventBus(SurveyEventBus<C> eventBus) {
-            this.eventBus = eventBus;
-
-            return this;
-        }
 
         public Builder initTestData() {
             SurveyDefinition surveyDefinition = surveyDefinitionRepository
@@ -60,7 +49,7 @@ public static Builder builder() {
             return this;
         }
         public SurveyServiceConfig build() {
-            return new SurveyServiceConfig(surveyDefinitionRepository, surveyRepository, eventBus);
+            return new SurveyServiceConfig(surveyDefinitionRepository, surveyRepository);
         }
     }
 }
