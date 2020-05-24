@@ -8,12 +8,11 @@ import pl.javorex.financialneeds.application.FinancialNeedsSurveyCommandHandlers
 import pl.javorex.financialneeds.application.FinancialNeedsSurveyQueryHandlers;
 import pl.javorex.financialneeds.application.command.FinancialNeedsAnswerCmd;
 import pl.javorex.survey.application.command.AnswerCmd;
-import pl.javorex.survey.application.response.SurveyDto;
+import pl.javorex.survey.application.dto.SurveyDto;
 import pl.javorex.survey.surveyspringapp.rest.request.SurveyAnswerRequest;
 import pl.javorex.survey.surveyspringapp.rest.response.SurveyResponse;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 

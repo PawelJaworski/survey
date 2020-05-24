@@ -2,7 +2,6 @@ package pl.javorex.survey.application;
 
 import pl.javorex.survey.application.command.SurveyAnswerCmd;
 import pl.javorex.survey.application.exception.SurveyNotFoundException;
-import pl.javorex.survey.application.response.ApiResult;
 import pl.javorex.survey.application.validation.SurveyValidator;
 import pl.javorex.survey.domain.AnsweredQuestion;
 import pl.javorex.survey.domain.RespondentID;

@@ -1,4 +1,4 @@
-package pl.javorex.survey.application.response;
+package pl.javorex.survey.application.dto;
 
 import java.util.List;
 

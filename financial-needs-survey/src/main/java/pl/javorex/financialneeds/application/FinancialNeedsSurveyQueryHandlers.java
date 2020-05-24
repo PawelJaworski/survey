@@ -2,7 +2,7 @@ package pl.javorex.financialneeds.application;
 
 import pl.javorex.survey.application.SurveyQueryHandlers;
 import pl.javorex.survey.application.query.SurveyByTypeAndVersionAndRespondentQuery;
-import pl.javorex.survey.application.response.SurveyDto;
+import pl.javorex.survey.application.dto.SurveyDto;
 
 import static pl.javorex.financialneeds.application.FinancialNeedsActualSurvey.SURVEY_TYPE;
 import static pl.javorex.financialneeds.application.FinancialNeedsActualSurvey.SURVEY_VERSION;

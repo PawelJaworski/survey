@@ -1,7 +1,7 @@
 package pl.javorex.survey.surveyspringapp.rest.response;
 
-import pl.javorex.survey.application.response.AnsweredQuestionDto;
-import pl.javorex.survey.application.response.QuestionDefinitionDto;
+import pl.javorex.survey.application.dto.AnsweredQuestionDto;
+import pl.javorex.survey.application.dto.QuestionDefinitionDto;
 
 import java.util.List;
 

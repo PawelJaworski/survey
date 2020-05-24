@@ -1,10 +1,9 @@
 package pl.javorex.survey.application;
 
 
-import pl.javorex.survey.application.response.AnsweredQuestionDto;
-import pl.javorex.survey.application.response.QuestionDefinitionDto;
-import pl.javorex.survey.application.response.SurveyDefinitionDto;
-import pl.javorex.survey.application.response.SurveyDto;
+import pl.javorex.survey.application.dto.AnsweredQuestionDto;
+import pl.javorex.survey.application.dto.QuestionDefinitionDto;
+import pl.javorex.survey.application.dto.SurveyDto;
 import pl.javorex.survey.domain.Survey;
 import pl.javorex.survey.domain.surveydefinition.QuestionDefinition;
 import pl.javorex.survey.domain.surveydefinition.SurveyDefinition;
