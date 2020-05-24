@@ -7,10 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import pl.javorex.financialneeds.application.*;
 import pl.javorex.financialneeds.application.query.FinancialNeedsQueryFacade;
-import pl.javorex.survey.application.SurveyCommandFacade;
-import pl.javorex.survey.application.SurveyQueryFacade;
-import pl.javorex.survey.application.SurveyQueryHandlers;
-import pl.javorex.survey.application.SurveyServiceConfig;
+import pl.javorex.survey.application.*;
 import pl.javorex.survey.application.event.SurveyEventBus;
 
 @Configuration
@@ -35,6 +32,10 @@ public class SurveyAppConfig {
     }
 
     @Bean
+    FinancialNeedsSurveyCommandHandlers financialNeedsSurveyCommandHandlers() {
+        return new FinancialNeedsSurveyCommandHandlers(surveyCommandFacade());
+    }
+    @Bean
     FinancialNeedsSurveyQueryHandlers financialNeedsSurveyQueryHandlers() {
         return new FinancialNeedsSurveyQueryHandlers(surveyQueryFacade());
     }
@@ -45,7 +46,7 @@ public class SurveyAppConfig {
     }
 
     @Bean
-    SurveyCommandFacade surveyCommandFacade() {
+    SurveyCommandFacadeImpl surveyCommandFacade() {
         return config.surveyCommandFacade();
     }
 

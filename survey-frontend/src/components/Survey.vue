@@ -44,7 +44,7 @@ export default {
         }
       }
 
-      this.$http.post(api + '/surveys/FINANCIAL_NEEDS/UNIT_LINKED.v1/javorex/answer', { answers })
+      this.$http.post(api + '/surveys/financialNeeds/javorex/answer', { answers })
               .then(it => {
                 if (it.data.errors.length > 0) {
                   this.errors = it.data.errors.join(', ');

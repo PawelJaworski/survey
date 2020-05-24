@@ -33,7 +33,7 @@ public static Builder builder() {
         return new SurveyQueryHandlers(surveyDefinitionRepository, surveyRepository);
     }
 
-    public SurveyCommandFacade surveyCommandFacade() {
+    public SurveyCommandFacadeImpl surveyCommandFacade() {
         return new SurveyCommandFacadeImpl(surveyDefinitionRepository, surveyRepository, eventBus);
     }
 
