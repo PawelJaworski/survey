@@ -10,7 +10,7 @@ import static pl.javorex.financialneeds.application.FinancialNeedsActualSurvey.*
 public final class FinancialNeedsSurveyCommandHandlers {
     private final SurveyCommandFacadeImpl surveyCommandHandlers;
 
-    public FinancialNeedsSurveyCommandHandlers(SurveyCommandFacadeImpl surveyCommandHandlers) {
+    FinancialNeedsSurveyCommandHandlers(SurveyCommandFacadeImpl surveyCommandHandlers) {
         this.surveyCommandHandlers = surveyCommandHandlers;
     }
 

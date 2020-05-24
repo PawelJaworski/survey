@@ -10,7 +10,7 @@ import static pl.javorex.financialneeds.application.FinancialNeedsActualSurvey.S
 public final class FinancialNeedsSurveyQueryHandlers<R> {
     private final SurveyQueryHandlers surveyQueryHandlers;
 
-    public FinancialNeedsSurveyQueryHandlers(SurveyQueryHandlers surveyQueryHandlers) {
+    FinancialNeedsSurveyQueryHandlers(SurveyQueryHandlers surveyQueryHandlers) {
         this.surveyQueryHandlers = surveyQueryHandlers;
     }
 

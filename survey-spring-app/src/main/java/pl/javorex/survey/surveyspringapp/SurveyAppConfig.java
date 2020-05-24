@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import pl.javorex.financialneeds.application.*;
-import pl.javorex.financialneeds.application.query.FinancialNeedsQueryFacade;
 import pl.javorex.survey.application.*;
 import pl.javorex.survey.application.event.SurveyEventBus;
 
@@ -20,7 +19,10 @@ public class SurveyAppConfig {
             .withEventBus(surveyEventBus)
             .initTestData()
             .build();
-    private final FinancialNeedsSurveyConfig financialNeedsSurveyConfig = new FinancialNeedsSurveyConfig();
+    private final SurveyQueryHandlers surveyQueryHandlers = config.surveyQueryFacade();
+    private final SurveyCommandFacadeImpl surveyCommandHandlers = config.surveyCommandFacade();
+    private final FinancialNeedsSurveyConfig financialNeedsSurveyConfig = new FinancialNeedsSurveyConfig(
+            surveyQueryHandlers, surveyCommandHandlers );
 
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
@@ -33,21 +35,21 @@ public class SurveyAppConfig {
 
     @Bean
     FinancialNeedsSurveyCommandHandlers financialNeedsSurveyCommandHandlers() {
-        return new FinancialNeedsSurveyCommandHandlers(surveyCommandFacade());
+        return financialNeedsSurveyConfig.getFinancialNeedsSurveyCommandHandlers();
     }
     @Bean
     FinancialNeedsSurveyQueryHandlers financialNeedsSurveyQueryHandlers() {
-        return new FinancialNeedsSurveyQueryHandlers(surveyQueryFacade());
+        return financialNeedsSurveyConfig.getFinancialNeedsSurveyQueryHandlers();
     }
 
     @Bean
     SurveyQueryHandlers surveyQueryFacade() {
-        return config.surveyQueryFacade();
+        return surveyQueryHandlers;
     }
 
     @Bean
-    SurveyCommandFacadeImpl surveyCommandFacade() {
-        return config.surveyCommandFacade();
+    SurveyCommandFacadeImpl surveyCommandHandlers() {
+        return surveyCommandHandlers;
     }
 
     @Bean
