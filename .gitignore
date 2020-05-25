@@ -29,5 +29,5 @@ hs_err_pid*
 /survey-service/target
 
 /financial-needs-scoring-service/target/
-/financial-needs-survey/.idea/
+/financial-needs-survey-service/.idea/
 /survey-public-api/target/classes/META-INF/

@@ -1,0 +1,6 @@
+pl/javorex/financialneeds/application/FinancialNeedsSurveyQueryHandlers.class
+pl/javorex/financialneeds/application/FinancialNeedsActualSurvey.class
+pl/javorex/financialneeds/application/FinancialNeedsSurveyConfig.class
+pl/javorex/financialneeds/application/ActualFinancialNeedsSurveyQuery.class
+pl/javorex/financialneeds/application/FinancialNeedsSurveyCommandHandlers.class
+pl/javorex/financialneeds/application/command/FinancialNeedsAnswerCmd.class

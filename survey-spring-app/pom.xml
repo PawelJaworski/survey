@@ -31,7 +31,7 @@
 		</dependency>
 		<dependency>
 			<groupId>pl.javorex.financialneeds</groupId>
-			<artifactId>financial-needs-survey</artifactId>
+			<artifactId>financial-needs-survey-service</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 

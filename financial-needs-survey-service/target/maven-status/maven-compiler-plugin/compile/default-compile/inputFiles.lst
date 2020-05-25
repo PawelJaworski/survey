@@ -1,0 +1,6 @@
+/home/pawel/experiments/survey/financial-needs-survey-service/src/main/java/pl/javorex/financialneeds/application/ActualFinancialNeedsSurveyQuery.java
+/home/pawel/experiments/survey/financial-needs-survey-service/src/main/java/pl/javorex/financialneeds/application/FinancialNeedsSurveyCommandHandlers.java
+/home/pawel/experiments/survey/financial-needs-survey-service/src/main/java/pl/javorex/financialneeds/application/command/FinancialNeedsAnswerCmd.java
+/home/pawel/experiments/survey/financial-needs-survey-service/src/main/java/pl/javorex/financialneeds/application/FinancialNeedsSurveyConfig.java
+/home/pawel/experiments/survey/financial-needs-survey-service/src/main/java/pl/javorex/financialneeds/application/FinancialNeedsSurveyQueryHandlers.java
+/home/pawel/experiments/survey/financial-needs-survey-service/src/main/java/pl/javorex/financialneeds/application/FinancialNeedsActualSurvey.java
