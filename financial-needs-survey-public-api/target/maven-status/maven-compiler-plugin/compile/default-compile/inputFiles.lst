@@ -1,0 +1,3 @@
+/home/pawel/experiments/survey/financial-needs-survey-public-api/src/main/java/pl/javorex/financialneeds/application/request/SurveyAnswerReq.java
+/home/pawel/experiments/survey/financial-needs-survey-public-api/src/main/java/pl/javorex/financialneeds/application/response/SurveyRes.java
+/home/pawel/experiments/survey/financial-needs-survey-public-api/src/main/java/pl/javorex/financialneeds/application/query/FinancialNeedsSurveyQueryFacade.java

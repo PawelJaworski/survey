@@ -1,0 +1,3 @@
+pl/javorex/financialneeds/application/request/SurveyAnswerReq.class
+pl/javorex/financialneeds/application/response/SurveyRes.class
+pl/javorex/financialneeds/application/query/FinancialNeedsSurveyQueryFacade.class
