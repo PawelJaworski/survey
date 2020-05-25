@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>pl.javorex.financialneeds</groupId>
-  <artifactId>financial-needs-public-api</artifactId>
+  <artifactId>financial-needs-scoring-domain</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>financial-needs-public-api</name>
+  <name>financial-needs-scoring-domain</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -19,6 +19,7 @@
   </properties>
 
   <dependencies>
+    
   </dependencies>
 
   <build>

@@ -1,0 +1,7 @@
+pl/javorex/financialneeds/domain/ScoringType.class
+pl/javorex/financialneeds/domain/CustomerID.class
+pl/javorex/financialneeds/domain/Scoring.class
+pl/javorex/financialneeds/domain/policy/ScoringCalculationPolicy.class
+pl/javorex/financialneeds/domain/policy/ScoringScoringCalculationIkePolicy.class
+pl/javorex/financialneeds/domain/ScoringResult.class
+pl/javorex/financialneeds/domain/ScoringRepository.class

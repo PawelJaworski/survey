@@ -1,0 +1,7 @@
+/home/pawel/experiments/survey/financial-needs-scoring-domain/src/main/java/pl/javorex/financialneeds/domain/policy/ScoringScoringCalculationIkePolicy.java
+/home/pawel/experiments/survey/financial-needs-scoring-domain/src/main/java/pl/javorex/financialneeds/domain/ScoringType.java
+/home/pawel/experiments/survey/financial-needs-scoring-domain/src/main/java/pl/javorex/financialneeds/domain/policy/ScoringCalculationPolicy.java
+/home/pawel/experiments/survey/financial-needs-scoring-domain/src/main/java/pl/javorex/financialneeds/domain/Scoring.java
+/home/pawel/experiments/survey/financial-needs-scoring-domain/src/main/java/pl/javorex/financialneeds/domain/ScoringRepository.java
+/home/pawel/experiments/survey/financial-needs-scoring-domain/src/main/java/pl/javorex/financialneeds/domain/CustomerID.java
+/home/pawel/experiments/survey/financial-needs-scoring-domain/src/main/java/pl/javorex/financialneeds/domain/ScoringResult.java
